@@ -2,7 +2,9 @@
   /* color */
   --color-background-primary: #5c415a;
   --color-background-secondary: #1368ce;
-  --color-text: #f0f0f0;
+  --color-box-primary: #ede8d0;
+  --color-text-white: #f0f0f0;
+  --color-text-black: #000000;
 
   /* font */
   --font-family: 'Roboto', sans-serif;
@@ -22,6 +24,6 @@ body {
   font-family: var(--font-family);
   font-size: var(--font-size);
   font-weight: var(--font-weight);
-  background-color: var(--color-background);
+  background-color: var(--color-background-primary);
   color: var(--color-text);
 }
