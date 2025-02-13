@@ -3,9 +3,10 @@ import { reactive, ref } from 'vue';
 import BaseInput from '@/components/input/BaseInput.vue';
 import BaseButton from '@/components/button/BaseButton.vue';
 import { login } from '@/services/auth';
-import { useRouter } from 'vue-router';
+import { useRouter, type Router } from 'vue-router';
 
-const router = useRouter();
+const router: Router = useRouter();
+
 const formData = reactive<{ email: string; password: string }>({
   email: '',
   password: '',
@@ -47,7 +48,7 @@ const submitForm = async () => {
     );
 
     if (response.success == true) {
-      // Redirect to dashboard
+      router.push('home');
     } else {
       serverError.value = response.message;
     }
