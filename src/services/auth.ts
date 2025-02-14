@@ -26,7 +26,7 @@ export async function checkSession() {
     return response;
   } catch (error) {
     if (error instanceof HTTPError) {
-      console.error(error.message);
+      console.error(error);
     }
     return false;
   }
