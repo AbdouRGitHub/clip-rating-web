@@ -19,3 +19,15 @@ export async function login(
     }
   }
 }
+
+export async function checkSession() {
+  try {
+    const response = await api.get('/auth/check-session').json<boolean>();
+    return response;
+  } catch (error) {
+    if (error instanceof HTTPError) {
+      console.error(error.message);
+    }
+    return false;
+  }
+}
