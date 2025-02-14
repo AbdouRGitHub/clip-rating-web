@@ -48,7 +48,7 @@ const submitForm = async () => {
     );
 
     if (response.success == true) {
-      router.push('home');
+      router.replace('/home');
     } else {
       serverError.value = response.message;
     }
