@@ -1,5 +1,5 @@
 import { HTTPError } from 'ky';
-import api from './index';
+import api from '.';
 
 export async function login(
   email: string,
@@ -22,7 +22,7 @@ export async function login(
 
 export async function checkSession() {
   try {
-    const response = await api.get('/auth/check-session').json<boolean>();
+    const response = await api.get('auth/check-session').json<boolean>();
     return response;
   } catch (error) {
     if (error instanceof HTTPError) {
