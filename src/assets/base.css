@@ -1,15 +1,14 @@
 :root {
   /* color */
-  --color-background-primary: #5c415a;
-  --color-background-secondary: #1368ce;
-  --color-box-primary: #ede8d0;
+  --color-background: #404040;
+  --color-box-primary: #f5e0b8;
   --color-text-white: #f0f0f0;
   --color-text-black: #000000;
   --color-text-danger: #ff0000;
 
   /* font */
   --font-family: 'Roboto', sans-serif;
-  --font-size: 16px;
+  --font-size: 15px;
   --font-weight: 400;
 }
 
@@ -25,6 +24,7 @@ body {
   font-family: var(--font-family);
   font-size: var(--font-size);
   font-weight: var(--font-weight);
-  background-color: var(--color-background-primary);
+  background-color: var(--color-background);
   color: var(--color-text);
+  min-height: 100vh;
 }
