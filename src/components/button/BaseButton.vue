@@ -23,5 +23,7 @@ button {
   width: 150px;
   height: 50px;
   padding: 2px;
+  cursor: pointer;
+  user-select: none;
 }
 </style>

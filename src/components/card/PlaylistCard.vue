@@ -23,8 +23,8 @@ const avatarURL = ref<string>(
       />
       <p>{{ props.playlist.user.username }}</p>
     </div>
-    <div>
-      <p>{{ props.playlist.name }}</p>
+    <div class="playlist">
+      <h3>{{ props.playlist.name }}</h3>
       <img src="@/assets/video.png" alt="playlist preview image" />
     </div>
   </div>
@@ -53,9 +53,17 @@ const avatarURL = ref<string>(
 }
 
 .avatar {
-  width: 25px; /* Ajuste selon tes besoins */
+  width: 25px;
   height: 25px;
   border-radius: 50%;
-  object-fit: contain; /* Pour éviter la déformation */
+  object-fit: contain;
+}
+
+.playlist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
 }
 </style>
