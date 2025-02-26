@@ -31,3 +31,13 @@ export async function checkSession() {
     return false;
   }
 }
+
+export async function logout(): Promise<void> {
+  try {
+    await api.delete('auth/logout').json<void>();
+  } catch (error) {
+    if (error instanceof HTTPError) {
+      console.error(error);
+    }
+  }
+}

@@ -1,7 +1,23 @@
 <script setup lang="ts">
+import { logout } from '@/services/auth';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 const props = defineProps<{
-  avatarURL: string;
+  avatarPath: string | null;
 }>();
+const avatarURL = `${import.meta.env.VITE_SUPABASE_AVATAR_URL}`;
+const isDropdownOpen = ref<boolean>(false);
+
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+};
+
+const disconnect = async () => {
+  await logout();
+  await router.push('/login');
+};
 </script>
 
 <template>
@@ -23,8 +39,22 @@ const props = defineProps<{
       </nav>
     </div>
     <div class="profile">
-      <img :src="props.avatarURL" class="avatar" />
-      <img src="@/assets/arrow-down-navbar.svg" height="15" width="15" alt="Arrow navbar" />
+      <img :src="avatarURL + '/' + props.avatarPath" class="avatar" @click="toggleDropdown" />
+      <img
+        src="@/assets/arrow-down-navbar.svg"
+        height="15"
+        width="15"
+        alt="Arrow navbar"
+        @click="toggleDropdown"
+      />
+      <div v-if="isDropdownOpen" class="dropdown-menu">
+        <ul class="dropdown-list">
+          <li>
+            <a><RouterLink to="/settings">Settings</RouterLink></a>
+          </li>
+          <li><a @click="disconnect">Logout</a></li>
+        </ul>
+      </div>
     </div>
   </header>
 </template>
@@ -60,18 +90,52 @@ header {
 }
 
 .profile {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 }
+
 ul {
   display: flex;
   column-gap: 20px;
 }
+ul.dropdown-list :hover {
+  background-color: var(--color-box-secondary);
+  color: var(--color-text-white);
+}
+
 li {
   list-style-type: none;
+  width: 100%;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 35%;
+  background-color: white;
+  border: 1px solid #ddd;
+  min-width: 150px;
+}
+
+.dropdown-menu ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-menu li {
+  padding: 8px;
+}
+
+.dropdown-menu a {
+  color: #333;
+  text-decoration: none;
 }
 </style>

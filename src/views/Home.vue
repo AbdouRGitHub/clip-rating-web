@@ -5,10 +5,7 @@ import MainHeader from '@/components/header/MainHeader.vue';
 import PlaylistCard from '@/components/card/PlaylistCard.vue';
 import type Playlist from '@/models/playlist';
 
-const avatarURL = ref<string>(
-  `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/${import.meta.env.VITE_SUPABASE_AVATAR_BUCKET}`,
-);
-
+const avatarPath = ref<string | null>(null);
 const playlists = reactive<Playlist[]>([
   {
     id: 'DOZAJDAZPOD',
@@ -67,9 +64,8 @@ const playlists = reactive<Playlist[]>([
 
 onMounted(async () => {
   try {
-    console.log(playlists);
     const response = await profile();
-    avatarURL.value = avatarURL.value + `/${response?.avatar_path}`;
+    avatarPath.value = response?.avatar_path ?? '';
   } catch (error) {
     console.error(error);
   }
@@ -77,26 +73,28 @@ onMounted(async () => {
 </script>
 
 <template>
-  <MainHeader :avatarURL="avatarURL" />
-  <main>
-    <div class="navbar"></div>
-    <div class="content">
-      <PlaylistCard v-for="playlist in playlists" :key="playlist.id" :playlist="playlist" />
-    </div>
-  </main>
+  <div class="home">
+    <MainHeader :avatarPath="avatarPath" />
+    <main>
+      <div class="content">
+        <PlaylistCard v-for="playlist in playlists" :key="playlist.id" :playlist="playlist" />
+      </div>
+    </main>
+  </div>
 </template>
 
 <style scoped>
+.home {
+  min-height: 100vh;
+}
+
 main {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
   height: 100%;
-  margin: 20px 20px;
-  column-gap: 20px;
+  margin: 40px 40px;
 }
-.navbar {
+.sidebar {
   flex: 1;
   background-color: bisque;
   width: 100%;
@@ -104,11 +102,11 @@ main {
 }
 
 .content {
-  flex: 2;
   width: 100%;
   height: 100%;
   display: grid;
-  gap: 10px;
   grid-template-columns: 1fr 1fr;
+  place-items: center;
+  gap: 10px;
 }
 </style>
