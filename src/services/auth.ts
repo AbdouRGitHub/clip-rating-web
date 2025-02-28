@@ -1,5 +1,6 @@
 import { HTTPError } from 'ky';
 import api from '.';
+import type User from '@/models/user';
 
 export async function login(
   email: string,
@@ -39,5 +40,17 @@ export async function logout(): Promise<void> {
     if (error instanceof HTTPError) {
       console.error(error);
     }
+  }
+}
+
+export async function authInfo(): Promise<User | null> {
+  try {
+    return await api.get('auth/info').json<User>();
+  } catch (error) {
+    if (error instanceof HTTPError) {
+      console.error(error);
+      return null;
+    }
+    return null;
   }
 }
