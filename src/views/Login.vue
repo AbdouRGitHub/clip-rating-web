@@ -58,6 +58,9 @@ const submitForm = async () => {
 
 <template>
   <div class="login">
+    <div class="logo">
+      <img src="@/assets/logo.png" alt="logo" width="200" height="200" />
+    </div>
     <div class="login-container">
       <span v-if="serverError" class="error-message">{{ serverError }}</span>
       <form @submit.prevent="submitForm">
@@ -72,6 +75,11 @@ const submitForm = async () => {
 </template>
 
 <style scoped>
+.logo {
+  width: 200px;
+  height: 120px;
+}
+
 .login {
   display: flex;
   width: 100%;
@@ -79,7 +87,7 @@ const submitForm = async () => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  row-gap: 20px;
+  row-gap: 10px;
 }
 
 .login-container {
@@ -90,7 +98,7 @@ const submitForm = async () => {
   row-gap: 5px;
   padding: 20px;
   width: 400px;
-  height: 500px;
+  height: 300px;
   background-color: var(--color-box-primary);
   border-radius: 2%;
 }

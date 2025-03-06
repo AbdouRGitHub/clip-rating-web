@@ -33,7 +33,7 @@ const avatarURL = ref<string>(
 .card {
   width: 90%;
   height: 100%;
-  background-color: grey;
+  background-color: var(--color-box-primary);
   border-radius: 10px;
   display: flex;
   flex-direction: column;

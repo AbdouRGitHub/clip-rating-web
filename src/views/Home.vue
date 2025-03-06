@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { profile } from '@/services/user';
-import { onMounted, reactive, ref } from 'vue';
+import { reactive } from 'vue';
 import MainHeader from '@/components/header/MainHeader.vue';
 import PlaylistCard from '@/components/card/PlaylistCard.vue';
 import type Playlist from '@/models/playlist';
+import { useUser } from '@/composables/user';
 
-const avatarPath = ref<string | null>(null);
 const playlists = reactive<Playlist[]>([
   {
     id: 'DOZAJDAZPOD',
@@ -62,19 +61,12 @@ const playlists = reactive<Playlist[]>([
   },
 ]);
 
-onMounted(async () => {
-  try {
-    const response = await profile();
-    avatarPath.value = response?.avatar_path ?? '';
-  } catch (error) {
-    console.error(error);
-  }
-});
+const { user } = useUser('profile');
 </script>
 
 <template>
   <div class="home">
-    <MainHeader :avatarPath="avatarPath" />
+    <MainHeader :avatarPath="user?.avatar_path ?? ''" />
     <main>
       <div class="content">
         <PlaylistCard v-for="playlist in playlists" :key="playlist.id" :playlist="playlist" />
@@ -89,10 +81,10 @@ onMounted(async () => {
 }
 
 main {
+  margin: 10px 40px auto 40px;
   display: flex;
   justify-content: center;
   height: 100%;
-  margin: 40px 40px;
 }
 .sidebar {
   flex: 1;
