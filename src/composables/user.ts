@@ -9,14 +9,11 @@ export function useUser(InitialType: string) {
 
   const fetchUserData = async (newType = type.value) => {
     type.value = newType;
-    console.table('OUAISSSSSSSSSSSSSSSS');
     switch (type.value) {
       case 'profile':
-        console.log('profile');
         user.value = await profile();
         break;
       case 'authInfo':
-        console.log('authInfo');
         user.value = await authInfo();
         break;
     }
