@@ -6,6 +6,23 @@ const router = createRouter({
   routes: [
     { path: '/', component: () => import('@/views/Login.vue') },
     { path: '/home', component: () => import('@/views/Home.vue'), meta: { requiresAuth: true } },
+    {
+      path: '/settings',
+      component: () => import('@/views/settings/Settings.vue'),
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: 'profile',
+          component: () => import('@/views/settings/ProfileSettings.vue'),
+          meta: { requiresAuth: true },
+        },
+        {
+          path: 'password',
+          component: () => import('@/views/settings/ChangePasswordSettings.vue'),
+          meta: { requiresAuth: true },
+        },
+      ],
+    },
   ],
 });
 
