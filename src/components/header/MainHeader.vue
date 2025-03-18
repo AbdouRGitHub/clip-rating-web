@@ -16,7 +16,7 @@ const toggleDropdown = () => {
 
 const disconnect = async () => {
   await logout();
-  await router.push('/login');
+  await router.push('/');
 };
 </script>
 
