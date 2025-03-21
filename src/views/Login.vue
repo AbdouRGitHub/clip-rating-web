@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import BaseInput from '@/components/input/BaseInput.vue';
-import BaseButton from '@/components/button/BaseButton.vue';
+import BaseInput from '@/components/BaseInput.vue';
+import BaseButton from '@/components/BaseButton.vue';
 import { login } from '@/services/auth';
 import { useRouter, type Router } from 'vue-router';
 

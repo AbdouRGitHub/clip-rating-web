@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
-import MainHeader from '@/components/header/MainHeader.vue';
-import PlaylistCard from '@/components/card/PlaylistCard.vue';
+import { onMounted, reactive } from 'vue';
+import MainHeader from '@/components/MainHeader.vue';
+import PlaylistCard from '@/components/PlaylistCard.vue';
 import type Playlist from '@/models/playlist';
-import { useUser } from '@/composables/user';
+import { useUserStore } from '@/store/user';
 
 const playlists = reactive<Playlist[]>([
   {
@@ -61,12 +61,16 @@ const playlists = reactive<Playlist[]>([
   },
 ]);
 
-const { user } = useUser('profile');
+const userStore = useUserStore();
+
+onMounted(async () => {
+  await userStore.fetchUserData();
+});
 </script>
 
 <template>
   <div class="home">
-    <MainHeader :avatarPath="user?.avatar_path ?? ''" />
+    <MainHeader :avatarPath="userStore.user?.avatar_path ?? ''" />
     <main>
       <div class="content">
         <PlaylistCard v-for="playlist in playlists" :key="playlist.id" :playlist="playlist" />

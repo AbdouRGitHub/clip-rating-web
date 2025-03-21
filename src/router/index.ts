@@ -14,12 +14,12 @@ const router = createRouter({
         {
           path: 'profile',
           component: () => import('@/views/settings/ProfileSettings.vue'),
-          meta: { requiresAuth: true },
+          meta: { requiresAuth: true }
         },
         {
           path: 'password',
           component: () => import('@/views/settings/ChangePasswordSettings.vue'),
-          meta: { requiresAuth: true },
+          meta: { requiresAuth: true }
         },
       ],
     },

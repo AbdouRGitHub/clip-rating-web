@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import MainHeader from '@/components/header/MainHeader.vue';
-import { profile } from '@/services/user';
-import { onMounted, ref } from 'vue';
-import { useUser } from '@/composables/user';
-const { user } = useUser('profile');
+import MainHeader from '@/components/MainHeader.vue';
+import { useUserStore } from '@/store/user';
+import { onMounted } from 'vue';
+
+const userStore = useUserStore();
+onMounted(async () => {
+  await userStore.fetchUserData();
+});
 </script>
 
 <template>
   <div class="settings">
-    <MainHeader :avatarPath="user?.avatar_path ?? ''" />
+    <MainHeader :avatarPath="userStore.user?.avatar_path ?? ''" />
     <main>
       <div class="settings-nav">
         <RouterLink to="/settings/" exactActiveClass="exactActiveClass">Settings</RouterLink>
@@ -18,7 +21,7 @@ const { user } = useUser('profile');
         </RouterLink>
       </div>
       <div class="settings-wrap">
-        <RouterView />
+        <RouterView/>
       </div>
     </main>
   </div>

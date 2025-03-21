@@ -13,5 +13,6 @@ input {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
+  color: var(--color-box-primary)
 }
 </style>

@@ -1,22 +1,31 @@
 <script setup lang="ts">
-import MainHeader from '@/components/header/MainHeader.vue';
-import BaseInput from '@/components/input/BaseInput.vue';
-import BaseButton from '@/components/button/BaseButton.vue';
-import { profile } from '@/services/user';
-import { onMounted, ref } from 'vue';
+import BaseInput from '@/components/BaseInput.vue';
+import BaseButton from '@/components/BaseButton.vue';
+import { reactive } from 'vue';
 
-const passwordData = ref<{ currentPassword: string }>({
-  currentPassword: '',
+const changePwdData = reactive({
+  currentPwd: '',
+  newPwd: '',
+  confirmNewPwd: '',
 });
 </script>
 
 <template>
   <div class="password-settings-container">
-    <h1>Change password</h1>
-    <BaseInput type="password" placeholder="Current password" />
-    <BaseInput type="password" placeholder="New password" />
-    <BaseInput type="password" placeholder="Confirm new password" />
-    <BaseButton>Confirm</BaseButton>
+    <form>
+      <BaseInput
+        type="password"
+        placeholder="Current password"
+        v-model="changePwdData.currentPwd"
+      />
+      <BaseInput type="password" placeholder="New password" autocomplete="new-password" v-model="changePwdData.newPwd" />
+      <BaseInput
+        type="password"
+        placeholder="Confirm new password"
+        v-model="changePwdData.newPwd"
+      />
+      <BaseButton type="submit" class="confirm-button">change</BaseButton>
+    </form>
   </div>
 </template>
 
@@ -26,10 +35,17 @@ const passwordData = ref<{ currentPassword: string }>({
   border-radius: 5px;
   padding: 10px;
   width: 80%;
+}
+
+form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   row-gap: 10px;
+}
+
+.confirm-button {
+  align-self: center;
 }
 </style>
