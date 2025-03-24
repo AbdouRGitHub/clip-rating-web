@@ -3,12 +3,14 @@ import { useUserStore } from '@/store/user';
 import BaseInput from '@/components/BaseInput.vue';
 import { reactive, watchEffect } from 'vue';
 import BaseButton from '@/components/BaseButton.vue';
+import { Input } from '@/components/ui/input';
 
 const avatarURL = `${import.meta.env.VITE_SUPABASE_AVATAR_URL}`;
 const userStore = useUserStore();
 let formData = reactive({
   username: '',
   email: '',
+  avatarImage: '',
 });
 
 watchEffect(() => {
@@ -33,7 +35,9 @@ watchEffect(() => {
     </section>
     <section class="avatar">
       <h3 class="title">Avatar</h3>
-      <p class="label-info"> Allowed Formats: JPEG, PNG. Max size: 3mb. Optimal dimensions: 200x200 </p>
+      <p class="label-info">
+        Allowed Formats: JPEG, PNG. Max size: 3mb. Optimal dimensions: 200x200
+      </p>
       <div class="avatar-container">
         <img
           :src="
@@ -45,8 +49,9 @@ watchEffect(() => {
           height="200"
           width="200"
         />
-        <BaseButton>change</BaseButton>
+        <Input id="picture" type="file" accept="image/*" />
       </div>
+      <BaseButton type="submit" class="confirm-button">change avatar</BaseButton>
     </section>
   </div>
 </template>
@@ -94,6 +99,7 @@ label {
 .confirm-button {
   align-self: center;
 }
+
 .label-info {
   color: var(--color-text-white);
   font-style: italic;
@@ -106,5 +112,15 @@ label {
   justify-content: space-evenly;
   align-items: center;
   column-gap: 10px;
+}
+
+#picture {
+  width: auto;
+}
+
+input[type='file']::file-selector-button {
+  color: white;
+  border-radius: 12px;
+  background-color: var(--color-background);
 }
 </style>
