@@ -41,6 +41,7 @@ const buttonStyle = computed(() => {
 
 <style scoped>
 .button {
+  width: auto;
   display: inline-flex;
   border: none;
   flex-direction: column;

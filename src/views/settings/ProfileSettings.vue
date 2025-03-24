@@ -4,6 +4,7 @@ import BaseInput from '@/components/BaseInput.vue';
 import { reactive, watchEffect } from 'vue';
 import BaseButton from '@/components/BaseButton.vue';
 
+const avatarURL = `${import.meta.env.VITE_SUPABASE_AVATAR_URL}`;
 const userStore = useUserStore();
 let formData = reactive({
   username: '',
@@ -22,7 +23,7 @@ watchEffect(() => {
   <div class="profile-settings-container">
     <section class="account">
       <h3 class="title">Account</h3>
-      <form>
+      <form @submit.prevent="">
         <label>username</label>
         <BaseInput type="text" v-model="formData.username" />
         <label>email</label>
@@ -32,6 +33,20 @@ watchEffect(() => {
     </section>
     <section class="avatar">
       <h3 class="title">Avatar</h3>
+      <p class="label-info"> Allowed Formats: JPEG, PNG. Max size: 3mb. Optimal dimensions: 200x200 </p>
+      <div class="avatar-container">
+        <img
+          :src="
+            userStore.user?.avatar_path
+              ? avatarURL + '/' + userStore.user.avatar_path
+              : '@/assets/avatar-default.png'
+          "
+          alt="avatar"
+          height="200"
+          width="200"
+        />
+        <BaseButton>change</BaseButton>
+      </div>
     </section>
   </div>
 </template>
@@ -46,7 +61,6 @@ watchEffect(() => {
   padding: 10px;
   width: 80%;
   row-gap: 20px;
-
 }
 
 .account {
@@ -79,5 +93,18 @@ label {
 }
 .confirm-button {
   align-self: center;
+}
+.label-info {
+  color: var(--color-text-white);
+  font-style: italic;
+  font-size: 10px;
+  align-self: center;
+}
+.avatar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  column-gap: 10px;
 }
 </style>
